@@ -75,14 +75,9 @@ body{
   color:var(--ink);
   margin-bottom:1rem;
 }
-.hero-name span{
-  display:inline;
+.hero-name em{
   font-style:italic;
   color:var(--accent);
-}
-.hero-name .de{
-  color:var(--ink);
-  font-style:normal;
 }
 .hero-divider{
   width:40px;height:1px;
@@ -246,7 +241,7 @@ body{
 #exito p{color:var(--muted);font-size:.9rem;}
 
 /* ─── SEPARADOR ─── */
-.sep{
+.sep-linea{
   height:1px;
   background:linear-gradient(90deg,transparent,rgba(184,149,90,.25),transparent);
   margin:0 1.5rem;
@@ -398,12 +393,9 @@ body{
   </div>
   <div class="hero-text">
     <p class="hero-eyebrow">Primera Comunión · 2026</p>
-    <h1 class="hero-name">
-      Bienvenidos<br>a la Comunión<br><span class="de">de </span><span class="nombre">Juanki</span>
-    </h1>
+    <h1 class="hero-name"><em>Juanki</em></h1>
     <div class="hero-divider"></div>
-    <p class="hero-sub">Un día especial para compartir con las personas que más queremos. Nos alegra tenerte aquí.</p>
-    <div style="margin-top:1.25rem;display:flex;flex-direction:column;gap:.3rem;">
+    <div style="display:flex;flex-direction:column;gap:.35rem;margin-bottom:.5rem;">
       <span style="font-size:.75rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)">📅 23 de Mayo de 2026</span>
       <span style="font-size:.8rem;color:var(--muted)">⛪ Iglesia Nuestra Señora de Altabás · 12:00 h</span>
     </div>
@@ -488,7 +480,7 @@ body{
   </div>
 </section>
 
-<div class="sep"></div>
+<div class="sep-linea"></div>
 
 <!-- ══ MÓDULO: CONFIRMACIÓN DE ASISTENCIA ══ -->
 <section class="seccion" id="sec-confirmar">
@@ -544,7 +536,7 @@ body{
   </div>
 </section>
 
-<div class="sep"></div>
+<div class="sep-linea"></div>
 
 <!-- ══ MÓDULO: LISTA DE REGALOS ══ -->
 <section class="seccion" id="sec-regalos">
@@ -555,7 +547,7 @@ body{
   <div id="lista-regalos"></div>
 </section>
 
-<div class="sep"></div>
+<div class="sep-linea"></div>
 
 <!-- ══ MÓDULO: ÁLBUM DE FOTOS ══ -->
 <section class="seccion" id="sec-fotos">
@@ -572,7 +564,7 @@ body{
   <div id="galeria"></div>
 </section>
 
-<div class="sep"></div>
+<div class="sep-linea"></div>
 
 <!-- ══ MÓDULO: LIBRO DE FIRMAS ══ -->
 <section class="seccion" id="sec-firmas">
