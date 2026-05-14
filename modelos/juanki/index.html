@@ -614,6 +614,7 @@ body{
 /* ══════════════════════════════════════
    FIREBASE CONFIG — Proyecto: juanki-cfec7
    ══════════════════════════════════════ */
+const CLIENT_ID = "juanki"; // Identificador único del cliente en Firestore
 const FB = {
   apiKey:            "AIzaSyBpLUV25TLfwmxA4s3KoxIPnzJaK4b4LH0",
   authDomain:        "juanki-cfec7.firebaseapp.com",
@@ -664,7 +665,7 @@ async function getDB(){if(_db)return _db;const{getFirestore}=await import("https
 async function actualizarContador(){
   try{
     const{collection,getCountFromServer}=await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-    const snap=await getCountFromServer(collection(await getDB(),"respuestas"));
+    const snap=await getCountFromServer(collection(await getDB(),"clientes",CLIENT_ID,"respuestas"));
     const el=$("cont-num");el.textContent=snap.data().count;
     el.classList.add("bump");setTimeout(()=>el.classList.remove("bump"),350);
   }catch{$("cont-num").textContent="0";}
@@ -693,7 +694,7 @@ $("form-confirm").addEventListener("submit",async e=>{
   const btn=$("btn-confirmar");btn.disabled=true;btn.textContent="Guardando…";
   try{
     const{collection,addDoc,serverTimestamp}=await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-    await addDoc(collection(await getDB(),"confirmaciones"),{
+    await addDoc(collection(await getDB(),"clientes",CLIENT_ID,"confirmaciones"),{
       nombre, asiste, adultos, ninos, nota:nota||"—", timestamp:serverTimestamp()
     });
     $("form-confirm").style.display="none";
@@ -723,7 +724,7 @@ let _regalosReservados = {};
 async function cargarRegalos(){
   try{
     const{collection,getDocs}=await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-    const snap=await getDocs(collection(await getDB(),"regalos"));
+    const snap=await getDocs(collection(await getDB(),"clientes",CLIENT_ID,"regalos"));
     snap.forEach(doc=>{ _regalosReservados[doc.id]=doc.data().reservado_por; });
   }catch{}
   renderRegalos();
@@ -756,7 +757,7 @@ async function reservarRegalo(id){
   if(!nombre) return;
   try{
     const{doc,setDoc,serverTimestamp}=await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-    await setDoc(doc(await getDB(),"regalos",id),{reservado_por:nombre,timestamp:serverTimestamp()});
+    await setDoc(doc(await getDB(),"clientes",CLIENT_ID,"regalos",id),{reservado_por:nombre,timestamp:serverTimestamp()});
     _regalosReservados[id]=nombre;
     renderRegalos();
     toast(`¡Genial, ${nombre}! 🎁 Regalo reservado`);
@@ -790,7 +791,7 @@ $("form-menu").addEventListener("submit",async e=>{
   const btn=$("btn-enviar");btn.disabled=true;btn.textContent="Guardando…";
   try{
     const{collection,addDoc,serverTimestamp}=await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-    await addDoc(collection(await getDB(),"respuestas"),{
+    await addDoc(collection(await getDB(),"clientes",CLIENT_ID,"respuestas"),{
       nombre,
       segundo: infantil?"🧒 Menú infantil":radio.value,
       alergias: alergias||"—",
@@ -844,7 +845,7 @@ async function subirUna(file){
   try{
     const base64=await comprimirImg(file);
     const{collection,addDoc,serverTimestamp}=await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-    await addDoc(collection(await getDB(),"fotos"),{base64,timestamp:serverTimestamp()});
+    await addDoc(collection(await getDB(),"clientes",CLIENT_ID,"fotos"),{base64,timestamp:serverTimestamp()});
     const img=document.createElement("img");img.src=base64;img.alt="Foto";
     div.className="foto-item";div.innerHTML="";div.appendChild(img);
     toast("¡Foto guardada! 📸");
@@ -854,7 +855,7 @@ async function subirUna(file){
 (async()=>{
   try{
     const{collection,getDocs,orderBy,query}=await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-    const snap=await getDocs(query(collection(await getDB(),"fotos"),orderBy("timestamp","desc")));
+    const snap=await getDocs(query(collection(await getDB(),"clientes",CLIENT_ID,"fotos"),orderBy("timestamp","desc")));
     snap.forEach(doc=>{
       const div=document.createElement("div");div.className="foto-item";
       const img=document.createElement("img");img.src=doc.data().base64;img.alt="Foto";
@@ -906,7 +907,7 @@ $("btn-firma").addEventListener("click",async()=>{
   try{
     const base64=cv.toDataURL("image/png");
     const{collection,addDoc,serverTimestamp}=await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-    await addDoc(collection(await getDB(),"firmas"),{nombre,dedicatoria:ded,base64,timestamp:serverTimestamp()});
+    await addDoc(collection(await getDB(),"clientes",CLIENT_ID,"firmas"),{nombre,dedicatoria:ded,base64,timestamp:serverTimestamp()});
     addFirmaDOM({nombre,ded,base64,fecha:new Date().toLocaleDateString("es-ES")});
     ctx.clearRect(0,0,cv.width,cv.height);
     $("firma-nombre").value="";$("firma-ded").value="";
@@ -937,7 +938,7 @@ function addFirmaDOM({nombre,ded,base64,fecha}){
 (async()=>{
   try{
     const{collection,getDocs,orderBy,query}=await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-    const snap=await getDocs(query(collection(await getDB(),"firmas"),orderBy("timestamp","desc")));
+    const snap=await getDocs(query(collection(await getDB(),"clientes",CLIENT_ID,"firmas"),orderBy("timestamp","desc")));
     snap.forEach(doc=>{
       const d=doc.data();
       addFirmaDOM({nombre:d.nombre,ded:d.dedicatoria||"",base64:d.base64,fecha:d.timestamp?.toDate().toLocaleDateString("es-ES")||""});
@@ -956,13 +957,13 @@ $("btn-admin").addEventListener("click",async()=>{
     const db=await getDB();
 
     /* Menú */
-    const snapMenu=await getDocs(collection(db,"respuestas"));
+    const snapMenu=await getDocs(collection(db,"clientes",CLIENT_ID,"respuestas"));
     const res={};let filasMenu="";let datosMenu=[];
     snapMenu.forEach(doc=>{const d=doc.data();filasMenu+=`<tr><td>${d.nombre}</td><td>${d.segundo}</td><td>${d.alergias||"—"}</td></tr>`;res[d.segundo]=(res[d.segundo]||0)+1;datosMenu.push(d);});
     const rr=Object.entries(res).sort((a,b)=>b[1]-a[1]).map(([p,n])=>`<tr><td>${p}</td><td><strong>${n}</strong></td></tr>`).join("");
 
     /* Confirmaciones */
-    const snapConf=await getDocs(collection(db,"confirmaciones"));
+    const snapConf=await getDocs(collection(db,"clientes",CLIENT_ID,"confirmaciones"));
     let filasConf="";let datosConf=[];let totalAdultos=0,totalNinos=0,totalSi=0,totalNo=0;
     snapConf.forEach(doc=>{
       const d=doc.data();
@@ -972,7 +973,7 @@ $("btn-admin").addEventListener("click",async()=>{
     });
 
     /* Regalos */
-    const snapReg=await getDocs(collection(db,"regalos"));
+    const snapReg=await getDocs(collection(db,"clientes",CLIENT_ID,"regalos"));
     let filasReg="";
     REGALOS.forEach(r=>{
       const doc=snapReg.docs.find(d=>d.id===r.id);
@@ -1056,7 +1057,7 @@ async function exportarConfirmaciones(){
 async function exportarFotos(){
   try{
     const{collection,getDocs,orderBy,query}=await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-    const snap=await getDocs(query(collection(await getDB(),"fotos"),orderBy("timestamp","desc")));
+    const snap=await getDocs(query(collection(await getDB(),"clientes",CLIENT_ID,"fotos"),orderBy("timestamp","desc")));
     if(snap.empty){toast("Sin fotos","err");return;}
     let i=1;
     snap.forEach(doc=>{
@@ -1072,7 +1073,7 @@ async function exportarFotos(){
 async function exportarFirmas(){
   try{
     const{collection,getDocs,orderBy,query}=await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-    const snap=await getDocs(query(collection(await getDB(),"firmas"),orderBy("timestamp","desc")));
+    const snap=await getDocs(query(collection(await getDB(),"clientes",CLIENT_ID,"firmas"),orderBy("timestamp","desc")));
     if(snap.empty){toast("Sin firmas","err");return;}
     snap.forEach(doc=>{
       const d=doc.data();
