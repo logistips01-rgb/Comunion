@@ -277,6 +277,40 @@ body{
 .spin{width:24px;height:24px;border:2px solid var(--warm);border-top-color:var(--accent);border-radius:50%;animation:giro .7s linear infinite;}
 @keyframes giro{to{transform:rotate(360deg);}}
 
+/* ─── CONFIRMACIÓN ─── */
+.asistencia-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.25rem;}
+.asistencia-grid .plato{justify-content:center;font-size:.95rem;padding:1rem;}
+.personas-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.25rem;}
+
+/* ─── REGALOS ─── */
+.regalo-card{
+  display:flex;align-items:flex-start;gap:1rem;
+  padding:1rem 1.1rem;border-radius:10px;
+  border:1px solid rgba(184,149,90,.2);
+  background:var(--white);margin-bottom:.65rem;
+  transition:all .2s;
+}
+.regalo-card.reservado{
+  background:var(--warm);
+  border-color:rgba(184,149,90,.35);
+  opacity:.75;
+}
+.regalo-emoji{font-size:2rem;line-height:1;flex-shrink:0;margin-top:.1rem;}
+.regalo-info{flex:1;min-width:0;}
+.regalo-nombre{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;margin-bottom:.2rem;}
+.regalo-desc{font-size:.8rem;color:var(--muted);line-height:1.5;margin-bottom:.4rem;}
+.regalo-precio{font-size:.72rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);}
+.regalo-estado{margin-top:.6rem;}
+.btn-regalo{
+  padding:.5rem 1.1rem;border:none;border-radius:6px;
+  font-family:'DM Sans',sans-serif;font-size:.75rem;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;cursor:pointer;
+  background:var(--ink);color:#fff;transition:background .2s;
+}
+.btn-regalo:hover:not(:disabled){background:#333;}
+.btn-regalo:disabled{background:var(--muted);cursor:not-allowed;}
+.regalo-reservado-por{font-size:.8rem;color:var(--muted);font-style:italic;margin-top:.35rem;}
+
 /* ─── FIRMAS ─── */
 #canvas-firma{
   width:100%;height:180px;border-radius:8px;
@@ -390,7 +424,9 @@ body{
 
 <!-- ══ NAV ══ -->
 <nav class="sticky-nav">
+  <a href="#sec-confirmar">Confirmar</a>
   <a href="#sec-menu">Menú</a>
+  <a href="#sec-regalos">Regalos</a>
   <a href="#sec-fotos">Fotos</a>
   <a href="#sec-firmas">Firmar</a>
 </nav>
@@ -450,6 +486,73 @@ body{
     <h3>¡Muchas gracias!</h3>
     <p>Nos vemos en la comunión de Juanki 🙏</p>
   </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ══ MÓDULO: CONFIRMACIÓN DE ASISTENCIA ══ -->
+<section class="seccion" id="sec-confirmar">
+  <p class="sec-eyebrow">La celebración</p>
+  <h2 class="sec-titulo">¿Podrás <em>acompañarnos?</em></h2>
+  <div class="sec-linea"></div>
+  <p class="sec-desc">Confirma tu asistencia antes del <strong>10 de mayo</strong> para que podamos organizarlo todo.</p>
+
+  <form id="form-confirm">
+    <div class="campo">
+      <label for="c-nombre">Tu nombre completo</label>
+      <input type="text" id="c-nombre" placeholder="María García López" autocomplete="name"/>
+    </div>
+
+    <div class="asistencia-grid">
+      <label class="plato" id="lbl-si">
+        <input type="radio" name="asiste" value="si">
+        <span class="dot">✓</span>
+        <span class="pnombre">✅ Sí, asistiré</span>
+      </label>
+      <label class="plato" id="lbl-no">
+        <input type="radio" name="asiste" value="no">
+        <span class="dot">✓</span>
+        <span class="pnombre">❌ No podré ir</span>
+      </label>
+    </div>
+
+    <div id="bloque-personas" style="display:none;">
+      <div class="personas-grid">
+        <div class="campo" style="margin:0">
+          <label for="c-adultos">Adultos</label>
+          <input type="number" id="c-adultos" value="1" min="0" max="30"/>
+        </div>
+        <div class="campo" style="margin:0">
+          <label for="c-ninos">Niños</label>
+          <input type="number" id="c-ninos" value="0" min="0" max="30"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="campo" style="margin-top:.5rem">
+      <label for="c-nota">Nota <span style="font-weight:300;text-transform:none;letter-spacing:0">(opcional)</span></label>
+      <textarea id="c-nota" rows="2" placeholder="Alergia, silla de ruedas, vengo tarde…"></textarea>
+    </div>
+
+    <button type="submit" class="btn-main" id="btn-confirmar">Confirmar asistencia</button>
+  </form>
+
+  <div id="exito-confirm" style="display:none;text-align:center;padding:3rem 1rem;">
+    <div style="font-size:3rem;margin-bottom:1rem;">🙏</div>
+    <h3 style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:300;margin-bottom:.5rem;">¡Gracias!</h3>
+    <p id="exito-confirm-msg" style="color:var(--muted);font-size:.9rem;"></p>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ══ MÓDULO: LISTA DE REGALOS ══ -->
+<section class="seccion" id="sec-regalos">
+  <p class="sec-eyebrow">Los regalos</p>
+  <h2 class="sec-titulo">Lista de <em>deseos</em></h2>
+  <div class="sec-linea"></div>
+  <p class="sec-desc">Si quieres hacerle un regalo a Juanki, aquí tienes algunas ideas. Márcalo para que nadie se repita 😊</p>
+  <div id="lista-regalos"></div>
 </section>
 
 <div class="sep"></div>
@@ -567,6 +670,100 @@ async function actualizarContador(){
   }catch{$("cont-num").textContent="0";}
 }
 actualizarContador();
+
+/* ── MÓDULO: Confirmación de asistencia ── */
+document.querySelectorAll('input[name="asiste"]').forEach(r=>{
+  r.addEventListener("change",()=>{
+    document.querySelectorAll(".asistencia-grid .plato").forEach(l=>l.classList.remove("sel"));
+    r.closest(".plato").classList.add("sel");
+    $("bloque-personas").style.display = r.value==="si" ? "block" : "none";
+  });
+});
+
+$("form-confirm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const nombre=$("c-nombre").value.trim();
+  const radio=document.querySelector('input[name="asiste"]:checked');
+  if(!nombre){toast("Escribe tu nombre","err");return;}
+  if(!radio){toast("Indica si asistirás","err");return;}
+  const asiste=radio.value==="si";
+  const adultos=asiste?parseInt($("c-adultos").value)||1:0;
+  const ninos=asiste?parseInt($("c-ninos").value)||0:0;
+  const nota=$("c-nota").value.trim();
+  const btn=$("btn-confirmar");btn.disabled=true;btn.textContent="Guardando…";
+  try{
+    const{collection,addDoc,serverTimestamp}=await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+    await addDoc(collection(await getDB(),"confirmaciones"),{
+      nombre, asiste, adultos, ninos, nota:nota||"—", timestamp:serverTimestamp()
+    });
+    $("form-confirm").style.display="none";
+    $("exito-confirm-msg").textContent = asiste
+      ? `¡Contamos contigo${adultos+ninos>1?` y ${adultos+ninos-1} acompañante${adultos+ninos-1>1?"s":""}`:""} 🎉`
+      : "Lo sentimos mucho. ¡Te echaremos de menos!";
+    $("exito-confirm").style.display="block";
+  }catch(err){
+    console.error(err);toast("Error al guardar","err");
+    btn.disabled=false;btn.textContent="Confirmar asistencia";
+  }
+});
+
+/* ── MÓDULO: Lista de regalos ── */
+const REGALOS = [
+  {id:"r1", emoji:"🎮", nombre:"Nintendo Switch", desc:"Consola portátil con mando incluido. Cualquier modelo vale.", precio:"~300 €"},
+  {id:"r2", emoji:"📚", nombre:"Colección libros de aventuras", desc:"Saga Geronimo Stilton completa u otra colección de su gusto.", precio:"~40 €"},
+  {id:"r3", emoji:"⚽", nombre:"Balón de fútbol oficial", desc:"Talla 5, de una marca conocida. ¡Le encanta el fútbol!", precio:"~30 €"},
+  {id:"r4", emoji:"🎨", nombre:"Set de manualidades y pintura", desc:"Acuarelas, témperas, canvas y pinceles de calidad.", precio:"~35 €"},
+  {id:"r5", emoji:"🚲", nombre:"Bicicleta de montaña", desc:"Talla 24 pulgadas. Color preferido: azul o verde.", precio:"~150 €"},
+  {id:"r6", emoji:"🎧", nombre:"Auriculares inalámbricos", desc:"Con cancelación de ruido, para música y videollamadas.", precio:"~60 €"},
+  {id:"r7", emoji:"💳", nombre:"Hucha / aportación libre", desc:"Si prefieres dejar una aportación económica para su futuro.", precio:"Libre"},
+];
+
+let _regalosReservados = {};
+
+async function cargarRegalos(){
+  try{
+    const{collection,getDocs}=await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+    const snap=await getDocs(collection(await getDB(),"regalos"));
+    snap.forEach(doc=>{ _regalosReservados[doc.id]=doc.data().reservado_por; });
+  }catch{}
+  renderRegalos();
+}
+
+function renderRegalos(){
+  const el=$("lista-regalos");
+  el.innerHTML=REGALOS.map(r=>{
+    const quien=_regalosReservados[r.id];
+    const libre=!quien;
+    return `<div class="regalo-card${libre?"":" reservado"}" id="rc-${r.id}">
+      <div class="regalo-emoji">${r.emoji}</div>
+      <div class="regalo-info">
+        <div class="regalo-nombre">${r.nombre}</div>
+        <div class="regalo-desc">${r.desc}</div>
+        <div class="regalo-precio">${r.precio}</div>
+        <div class="regalo-estado">
+          ${libre
+            ? `<button class="btn-regalo" onclick="reservarRegalo('${r.id}')">Me lo llevo 🎁</button>`
+            : `<button class="btn-regalo" disabled>Ya elegido</button>
+               <div class="regalo-reservado-por">lo trae ${quien}</div>`}
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+async function reservarRegalo(id){
+  const nombre=prompt("¿Cuál es tu nombre?")?.trim();
+  if(!nombre) return;
+  try{
+    const{doc,setDoc,serverTimestamp}=await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+    await setDoc(doc(await getDB(),"regalos",id),{reservado_por:nombre,timestamp:serverTimestamp()});
+    _regalosReservados[id]=nombre;
+    renderRegalos();
+    toast(`¡Genial, ${nombre}! 🎁 Regalo reservado`);
+  }catch(err){console.error(err);toast("Error al reservar","err");}
+}
+
+cargarRegalos();
 
 /* ── MÓDULO: Elección de plato ── */
 document.querySelectorAll(".plato").forEach(l=>{
@@ -756,20 +953,56 @@ $("btn-admin").addEventListener("click",async()=>{
   $("admin-body").innerHTML="<p style='padding:1rem;text-align:center'>Cargando…</p>";
   try{
     const{collection,getDocs}=await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-    const snap=await getDocs(collection(await getDB(),"respuestas"));
-    if(snap.empty){$("admin-body").innerHTML="<p style='padding:1rem;text-align:center'>Sin respuestas todavía.</p>";return;}
-    const res={};let filas="";let datos=[];
-    snap.forEach(doc=>{const d=doc.data();filas+=`<tr><td>${d.nombre}</td><td>${d.segundo}</td><td>${d.alergias||"—"}</td></tr>`;res[d.segundo]=(res[d.segundo]||0)+1;datos.push(d);});
+    const db=await getDB();
+
+    /* Menú */
+    const snapMenu=await getDocs(collection(db,"respuestas"));
+    const res={};let filasMenu="";let datosMenu=[];
+    snapMenu.forEach(doc=>{const d=doc.data();filasMenu+=`<tr><td>${d.nombre}</td><td>${d.segundo}</td><td>${d.alergias||"—"}</td></tr>`;res[d.segundo]=(res[d.segundo]||0)+1;datosMenu.push(d);});
     const rr=Object.entries(res).sort((a,b)=>b[1]-a[1]).map(([p,n])=>`<tr><td>${p}</td><td><strong>${n}</strong></td></tr>`).join("");
-    window._adminDatos=datos;
+
+    /* Confirmaciones */
+    const snapConf=await getDocs(collection(db,"confirmaciones"));
+    let filasConf="";let datosConf=[];let totalAdultos=0,totalNinos=0,totalSi=0,totalNo=0;
+    snapConf.forEach(doc=>{
+      const d=doc.data();
+      filasConf+=`<tr><td>${d.nombre}</td><td>${d.asiste?"✅ Sí":"❌ No"}</td><td>${d.asiste?d.adultos:0}</td><td>${d.asiste?d.ninos:0}</td><td>${d.nota||"—"}</td></tr>`;
+      if(d.asiste){totalSi++;totalAdultos+=d.adultos||0;totalNinos+=d.ninos||0;}else totalNo++;
+      datosConf.push(d);
+    });
+
+    /* Regalos */
+    const snapReg=await getDocs(collection(db,"regalos"));
+    let filasReg="";
+    REGALOS.forEach(r=>{
+      const doc=snapReg.docs.find(d=>d.id===r.id);
+      const quien=doc?doc.data().reservado_por:"Libre";
+      filasReg+=`<tr><td>${r.emoji} ${r.nombre}</td><td>${r.precio}</td><td>${quien==="Libre"?"<em style='color:var(--muted)'>Libre</em>":quien}</td></tr>`;
+    });
+
+    window._adminDatos=datosMenu;window._adminConf=datosConf;
     $("admin-body").innerHTML=`
-      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.25rem;">
-        <button onclick="exportarXLSX()" style="padding:.5rem 1rem;background:var(--ink);color:#fff;border:none;border-radius:6px;font-size:.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;">⬇ Exportar Excel (.xlsx)</button>
-        <button onclick="exportarFotos()" style="padding:.5rem 1rem;background:var(--accent);color:#fff;border:none;border-radius:6px;font-size:.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;">⬇ Descargar fotos</button>
-        <button onclick="exportarFirmas()" style="padding:.5rem 1rem;background:var(--accent);color:#fff;border:none;border-radius:6px;font-size:.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;">⬇ Descargar firmas</button>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+        <button onclick="exportarXLSX()" style="padding:.5rem 1rem;background:var(--ink);color:#fff;border:none;border-radius:6px;font-size:.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;">⬇ Excel menú</button>
+        <button onclick="exportarConfirmaciones()" style="padding:.5rem 1rem;background:var(--ink);color:#fff;border:none;border-radius:6px;font-size:.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;">⬇ Excel confirmaciones</button>
+        <button onclick="exportarFotos()" style="padding:.5rem 1rem;background:var(--accent);color:#fff;border:none;border-radius:6px;font-size:.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;">⬇ Fotos</button>
+        <button onclick="exportarFirmas()" style="padding:.5rem 1rem;background:var(--accent);color:#fff;border:none;border-radius:6px;font-size:.8rem;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:500;">⬇ Firmas</button>
       </div>
-      <h4 style="margin-bottom:.75rem">Resumen</h4><table><thead><tr><th>Plato</th><th>Votos</th></tr></thead><tbody>${rr}</tbody></table>
-      <h4 style="margin:1.5rem 0 .75rem">Todos los invitados</h4><table><thead><tr><th>Invitado</th><th>Segundo</th><th>Alergias</th></tr></thead><tbody>${filas}</tbody></table>`;
+
+      <h4 style="margin-bottom:.75rem">Confirmaciones · resumen</h4>
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
+        <div style="background:var(--warm);border-radius:8px;padding:.6rem 1rem;font-size:.85rem;"><strong>${totalSi}</strong> asisten · <strong>${totalNo}</strong> no pueden</div>
+        <div style="background:var(--warm);border-radius:8px;padding:.6rem 1rem;font-size:.85rem;"><strong>${totalAdultos}</strong> adultos · <strong>${totalNinos}</strong> niños · <strong>${totalAdultos+totalNinos}</strong> total</div>
+      </div>
+      <table><thead><tr><th>Nombre</th><th>Asiste</th><th>Adultos</th><th>Niños</th><th>Nota</th></tr></thead><tbody>${filasConf||"<tr><td colspan='5' style='color:var(--muted)'>Sin confirmaciones todavía.</td></tr>"}</tbody></table>
+
+      <h4 style="margin:1.75rem 0 .75rem">Menú · resumen por plato</h4>
+      <table><thead><tr><th>Plato</th><th>Votos</th></tr></thead><tbody>${rr||"<tr><td colspan='2' style='color:var(--muted)'>Sin respuestas todavía.</td></tr>"}</tbody></table>
+      <h4 style="margin:1.5rem 0 .75rem">Menú · todos los invitados</h4>
+      <table><thead><tr><th>Invitado</th><th>Segundo</th><th>Alergias</th></tr></thead><tbody>${filasMenu||"<tr><td colspan='3' style='color:var(--muted)'>Sin respuestas todavía.</td></tr>"}</tbody></table>
+
+      <h4 style="margin:1.75rem 0 .75rem">Lista de regalos</h4>
+      <table><thead><tr><th>Regalo</th><th>Precio</th><th>Reservado por</th></tr></thead><tbody>${filasReg}</tbody></table>`;
   }catch(err){$("admin-body").innerHTML="<p style='padding:1rem;color:red'>Error. Comprueba las reglas de Firestore.</p>";}
 });
 
@@ -798,6 +1031,26 @@ async function exportarXLSX(){
     XLSX.writeFile(wb,"menu-comunion-juanki.xlsx");
     toast("¡Excel descargado! 📊");
   }catch(e){console.error(e);toast("Error al exportar Excel","err");}
+}
+
+async function exportarConfirmaciones(){
+  const datos=window._adminConf||[];
+  if(!datos.length){toast("Sin confirmaciones","err");return;}
+  try{
+    const XLSX=await import("https://cdn.sheetjs.com/xlsx-0.20.1/package/xlsx.mjs");
+    const ws=XLSX.utils.json_to_sheet(datos.map(d=>({
+      "Nombre":d.nombre,
+      "Asiste":d.asiste?"Sí":"No",
+      "Adultos":d.adultos||0,
+      "Niños":d.ninos||0,
+      "Nota":d.nota||"—"
+    })));
+    ws["!cols"]=[{wch:28},{wch:8},{wch:9},{wch:8},{wch:40}];
+    const wb=XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb,ws,"Confirmaciones");
+    XLSX.writeFile(wb,"confirmaciones-comunion-juanki.xlsx");
+    toast("¡Excel descargado! 📊");
+  }catch(e){console.error(e);toast("Error al exportar","err");}
 }
 
 async function exportarFotos(){
