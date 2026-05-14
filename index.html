@@ -3,234 +3,481 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Webs de Comunión — Modelos</title>
+<title>Webs de Comunión — Páginas personalizadas para el día más especial</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#1a1a1a;
   --soft:#f7f5f2;
   --warm:#f0ebe3;
   --accent:#b8955a;
+  --accent2:#d4b483;
   --muted:#8a7d6e;
   --white:#ffffff;
   --shadow:rgba(26,26,26,.08);
+  --shadow-lg:rgba(26,26,26,.14);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'DM Sans',sans-serif;background:var(--soft);color:var(--ink);}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--soft);color:var(--ink);overflow-x:hidden;}
 
-header{
-  padding:3rem 2rem 2rem;
+/* ─── HERO ─── */
+.hero{
+  min-height:100svh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
   text-align:center;
-  border-bottom:1px solid rgba(184,149,90,.15);
-}
-.logo{
-  font-family:'Cormorant Garamond',serif;
-  font-size:2.5rem;font-weight:300;
-  color:var(--ink);margin-bottom:.5rem;
-}
-.logo em{color:var(--accent);font-style:italic;}
-.sub{font-size:.82rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;}
-
-main{
-  max-width:960px;margin:0 auto;
-  padding:3rem 1.5rem 5rem;
-}
-
-h2{
-  font-family:'Cormorant Garamond',serif;
-  font-size:1.6rem;font-weight:300;
-  color:var(--muted);
-  margin-bottom:2rem;
-  padding-bottom:.75rem;
-  border-bottom:1px solid rgba(184,149,90,.2);
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-  gap:1.25rem;
-}
-
-.card{
-  background:var(--white);
-  border:1px solid rgba(184,149,90,.2);
-  border-radius:12px;
-  overflow:hidden;
-  transition:box-shadow .2s,transform .2s;
-}
-.card:hover{
-  box-shadow:0 8px 32px var(--shadow);
-  transform:translateY(-3px);
-}
-.card-thumb{
-  height:180px;
-  background:var(--warm);
-  display:flex;align-items:center;justify-content:center;
-  font-size:3rem;
-  border-bottom:1px solid rgba(184,149,90,.1);
+  padding:5rem 2rem 4rem;
   position:relative;
+  background:var(--white);
   overflow:hidden;
 }
-.card-thumb img{width:100%;height:100%;object-fit:cover;object-position:top;}
-.card-badge{
-  position:absolute;top:.6rem;right:.6rem;
-  background:var(--accent);color:#fff;
-  font-size:.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
-  padding:.25rem .6rem;border-radius:20px;
+.hero::before{
+  content:'';
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(184,149,90,.07) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(184,149,90,.05) 0%, transparent 70%);
+  pointer-events:none;
 }
-.card-badge.proximamente{background:var(--muted);}
-.card-body{padding:1.25rem;}
-.card-title{
+.hero-ornament{
   font-family:'Cormorant Garamond',serif;
-  font-size:1.35rem;font-weight:400;
-  margin-bottom:.35rem;
+  font-size:1rem;
+  color:var(--accent2);
+  letter-spacing:.5em;
+  text-transform:uppercase;
+  margin-bottom:2rem;
+  opacity:.7;
 }
-.card-desc{font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:1rem;}
-.card-modulos{
-  display:flex;flex-wrap:wrap;gap:.35rem;
-  margin-bottom:1.1rem;
+.hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3.5rem,9vw,7.5rem);
+  font-weight:300;
+  line-height:.95;
+  color:var(--ink);
+  margin-bottom:1.5rem;
 }
+.hero-title em{
+  font-style:italic;
+  color:var(--accent);
+  display:block;
+}
+.hero-divider{
+  width:60px;height:1px;
+  background:linear-gradient(to right, transparent, var(--accent), transparent);
+  margin:2rem auto;
+}
+.hero-sub{
+  font-size:1.05rem;
+  color:var(--muted);
+  line-height:1.8;
+  max-width:480px;
+  font-weight:300;
+  margin-bottom:3rem;
+}
+.hero-ctas{
+  display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;
+}
+.btn-primary{
+  padding:.85rem 2rem;
+  background:var(--ink);color:var(--white);
+  border:none;border-radius:6px;
+  font-family:'DM Sans',sans-serif;
+  font-size:.82rem;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;
+  text-decoration:none;
+  transition:background .2s;
+  cursor:pointer;
+}
+.btn-primary:hover{background:#333;}
+.btn-secondary{
+  padding:.85rem 2rem;
+  background:transparent;color:var(--ink);
+  border:1px solid rgba(26,26,26,.2);border-radius:6px;
+  font-family:'DM Sans',sans-serif;
+  font-size:.82rem;font-weight:500;
+  letter-spacing:.12em;text-transform:uppercase;
+  text-decoration:none;
+  transition:border-color .2s,color .2s;
+}
+.btn-secondary:hover{border-color:var(--accent);color:var(--accent);}
+.hero-scroll{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  color:var(--muted);font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;
+  animation:bounce 2s ease-in-out infinite;
+}
+.hero-scroll::after{
+  content:'';display:block;
+  width:1px;height:30px;
+  background:linear-gradient(to bottom,var(--accent),transparent);
+}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(-6px);}}
+
+/* ─── SECTION WRAPPER ─── */
+section{padding:5rem 2rem;}
+.section-inner{max-width:1100px;margin:0 auto;}
+.section-label{
+  font-size:.7rem;font-weight:500;
+  letter-spacing:.3em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:1rem;
+}
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:300;line-height:1.15;
+  color:var(--ink);margin-bottom:1rem;
+}
+.section-title em{font-style:italic;color:var(--accent);}
+.section-desc{
+  font-size:.95rem;color:var(--muted);
+  line-height:1.8;max-width:520px;
+  font-weight:300;margin-bottom:3rem;
+}
+
+/* ─── PROPUESTA DE VALOR ─── */
+.valor{background:var(--soft);}
+.valor-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:1.5rem;
+  margin-top:3rem;
+}
+.valor-card{
+  background:var(--white);
+  border:1px solid rgba(184,149,90,.15);
+  border-radius:12px;
+  padding:1.75rem 1.5rem;
+}
+.valor-icon{font-size:2rem;margin-bottom:1rem;}
+.valor-name{font-weight:600;font-size:.95rem;margin-bottom:.4rem;}
+.valor-desc{font-size:.82rem;color:var(--muted);line-height:1.6;}
+
+/* ─── MODELOS ─── */
+.modelos{background:var(--white);}
+.modelos-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:2rem;
+}
+.modelo-card{
+  border:1px solid rgba(184,149,90,.18);
+  border-radius:16px;
+  overflow:hidden;
+  background:var(--soft);
+  transition:box-shadow .25s,transform .25s;
+}
+.modelo-card:hover{
+  box-shadow:0 16px 48px var(--shadow-lg);
+  transform:translateY(-4px);
+}
+.modelo-preview{
+  height:340px;
+  position:relative;
+  background:var(--warm);
+  overflow:hidden;
+}
+/* Contenedor que simula una pantalla de ordenador/móvil */
+.modelo-preview iframe{
+  width:1200px;
+  height:900px;
+  border:none;
+  transform:scale(0.27);
+  transform-origin:top left;
+  pointer-events:none;
+  position:absolute;top:0;left:0;
+}
+.modelo-preview .coming-soon{
+  width:100%;height:100%;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:1rem;
+  color:var(--muted);
+}
+.coming-soon-icon{font-size:3.5rem;}
+.coming-soon-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.4rem;font-weight:300;
+  color:var(--muted);
+}
+.modelo-badge{
+  position:absolute;top:.75rem;right:.75rem;
+  font-size:.6rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  padding:.3rem .75rem;border-radius:20px;
+  background:var(--accent);color:#fff;
+  z-index:2;
+}
+.modelo-badge.prox{background:var(--muted);}
+.modelo-body{padding:1.5rem;}
+.modelo-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.5rem;font-weight:400;
+  margin-bottom:.4rem;
+}
+.modelo-desc{font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:1rem;}
+.modelo-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:1.25rem;}
 .tag{
-  font-size:.65rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
+  font-size:.63rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;
   padding:.2rem .6rem;border-radius:20px;
   background:rgba(184,149,90,.1);color:var(--accent);
   border:1px solid rgba(184,149,90,.2);
 }
-.btn-ver{
+.btn-modelo{
   display:block;text-align:center;
-  padding:.65rem 1rem;border-radius:6px;
+  padding:.7rem 1rem;border-radius:6px;
   background:var(--ink);color:#fff;
   text-decoration:none;font-size:.78rem;
   font-weight:500;letter-spacing:.1em;text-transform:uppercase;
   transition:background .2s;
 }
-.btn-ver:hover{background:#333;}
-.btn-ver.disabled{
+.btn-modelo:hover{background:#333;}
+.btn-modelo.disabled{
   background:var(--warm);color:var(--muted);
   cursor:not-allowed;pointer-events:none;
 }
 
-/* Módulos legend */
-.modulos-section{margin-top:3.5rem;}
-.mod-grid{
+/* ─── MÓDULOS ─── */
+.modulos{background:var(--soft);}
+.modulos-grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
   gap:1rem;
-  margin-top:1.25rem;
+  margin-top:3rem;
 }
 .mod-card{
   background:var(--white);
   border:1px solid rgba(184,149,90,.15);
   border-radius:10px;
-  padding:1.1rem;
+  padding:1.25rem;
+  transition:box-shadow .2s;
 }
-.mod-icon{font-size:1.6rem;margin-bottom:.5rem;}
+.mod-card:hover{box-shadow:0 4px 20px var(--shadow);}
+.mod-icon{font-size:1.8rem;margin-bottom:.6rem;}
 .mod-name{font-weight:500;font-size:.9rem;margin-bottom:.3rem;}
 .mod-desc{font-size:.78rem;color:var(--muted);line-height:1.5;}
 
+/* ─── CÓMO FUNCIONA ─── */
+.proceso{background:var(--white);}
+.pasos{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:2rem;
+  margin-top:3rem;
+  counter-reset:paso;
+}
+.paso{
+  position:relative;
+  counter-increment:paso;
+}
+.paso::before{
+  content:counter(paso);
+  display:block;
+  font-family:'Cormorant Garamond',serif;
+  font-size:3.5rem;font-weight:300;
+  color:rgba(184,149,90,.2);
+  line-height:1;
+  margin-bottom:.75rem;
+}
+.paso-title{font-weight:600;font-size:.95rem;margin-bottom:.4rem;}
+.paso-desc{font-size:.82rem;color:var(--muted);line-height:1.6;}
+
+/* ─── CONTACTO ─── */
+.contacto{
+  background:var(--ink);
+  color:var(--white);
+  text-align:center;
+}
+.contacto .section-title{color:var(--white);}
+.contacto .section-desc{color:rgba(255,255,255,.55);max-width:440px;margin:0 auto 3rem;}
+.contact-grid{
+  display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;
+}
+.contact-btn{
+  display:inline-flex;align-items:center;gap:.6rem;
+  padding:.85rem 1.75rem;
+  border-radius:6px;
+  font-family:'DM Sans',sans-serif;
+  font-size:.82rem;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;
+  text-decoration:none;
+  transition:opacity .2s,transform .2s;
+  cursor:pointer;
+  border:none;
+}
+.contact-btn:hover{opacity:.85;transform:translateY(-2px);}
+.contact-btn.whatsapp{background:#25D366;color:#fff;}
+.contact-btn.email{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.15);}
+.contact-btn.instagram{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff;}
+.contact-note{
+  margin-top:2rem;
+  font-size:.75rem;
+  color:rgba(255,255,255,.3);
+  letter-spacing:.05em;
+}
+
+/* ─── FOOTER ─── */
 footer{
   text-align:center;
   padding:2rem;
-  font-size:.75rem;
+  font-size:.73rem;
   color:var(--muted);
+  background:var(--soft);
   border-top:1px solid rgba(184,149,90,.1);
+}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:600px){
+  .hero-ctas{flex-direction:column;align-items:center;}
+  .modelo-preview iframe{width:800px;height:600px;transform:scale(0.41);}
+  .modelo-preview{height:250px;}
 }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">Webs de <em>Comunión</em></div>
-  <p class="sub">Colección de modelos · Elige módulos a tu gusto</p>
-</header>
-
-<main>
-
-  <!-- MODELOS -->
-  <h2>Modelos disponibles</h2>
-  <div class="grid">
-
-    <!-- Modelo 1: Juanki -->
-    <div class="card">
-      <div class="card-thumb">
-        🎊
-        <span class="card-badge">Activo</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">Modelo Juanki</div>
-        <p class="card-desc">Estilo elegante crema y dorado. Foto a pantalla completa, cuenta atrás, elección de menú, álbum compartido y libro de firmas.</p>
-        <div class="card-modulos">
-          <span class="tag">Hero foto</span>
-          <span class="tag">Cuenta atrás</span>
-          <span class="tag">Confirmar</span>
-          <span class="tag">Menú</span>
-          <span class="tag">Regalos</span>
-          <span class="tag">Fotos</span>
-          <span class="tag">Firmas</span>
-          <span class="tag">Admin</span>
-        </div>
-        <a href="modelos/juanki/" class="btn-ver">Ver modelo</a>
-      </div>
-    </div>
-
-    <!-- Modelo 2: próximamente -->
-    <div class="card">
-      <div class="card-thumb">
-        ✨
-        <span class="card-badge proximamente">Próximamente</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">Modelo 2</div>
-        <p class="card-desc">Nuevo diseño en desarrollo. Combina módulos distintos para ofrecer una experiencia diferente.</p>
-        <div class="card-modulos">
-          <span class="tag">—</span>
-        </div>
-        <a href="#" class="btn-ver disabled">Próximamente</a>
-      </div>
-    </div>
-
-    <!-- Modelo 3: próximamente -->
-    <div class="card">
-      <div class="card-thumb">
-        🌸
-        <span class="card-badge proximamente">Próximamente</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">Modelo 3</div>
-        <p class="card-desc">En desarrollo.</p>
-        <div class="card-modulos">
-          <span class="tag">—</span>
-        </div>
-        <a href="#" class="btn-ver disabled">Próximamente</a>
-      </div>
-    </div>
-
-    <!-- Modelo 4: próximamente -->
-    <div class="card">
-      <div class="card-thumb">
-        🕊️
-        <span class="card-badge proximamente">Próximamente</span>
-      </div>
-      <div class="card-body">
-        <div class="card-title">Modelo 4</div>
-        <p class="card-desc">En desarrollo.</p>
-        <div class="card-modulos">
-          <span class="tag">—</span>
-        </div>
-        <a href="#" class="btn-ver disabled">Próximamente</a>
-      </div>
-    </div>
-
+<!-- ══ HERO ══ -->
+<section class="hero" id="inicio">
+  <p class="hero-ornament">✦ &nbsp; Páginas web para comuniones &nbsp; ✦</p>
+  <h1 class="hero-title">
+    Webs de<br>
+    <em>Comunión</em>
+  </h1>
+  <div class="hero-divider"></div>
+  <p class="hero-sub">
+    Páginas personalizadas para el día más especial. Elige los módulos que quieras y lo montamos todo para ti.
+  </p>
+  <div class="hero-ctas">
+    <a href="#modelos" class="btn-primary">Ver modelos</a>
+    <a href="#contacto" class="btn-secondary">Pedir presupuesto</a>
   </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
 
-  <!-- CATÁLOGO DE MÓDULOS -->
-  <div class="modulos-section">
-    <h2>Catálogo de módulos</h2>
-    <p style="font-size:.85rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.7;">
-      Cada web se construye combinando módulos. Para un cliente nuevo, elige qué módulos quieres incluir y se monta sobre el modelo base elegido.
-    </p>
-    <div class="mod-grid">
+<!-- ══ PROPUESTA DE VALOR ══ -->
+<section class="valor" id="que-es">
+  <div class="section-inner">
+    <p class="section-label">¿Qué incluye?</p>
+    <h2 class="section-title">Todo lo que necesitas<br><em>en una sola web</em></h2>
+    <p class="section-desc">Una web de comunión es mucho más que una invitación digital. Es el centro de todo el evento.</p>
+    <div class="valor-grid">
+      <div class="valor-card">
+        <div class="valor-icon">🎨</div>
+        <div class="valor-name">Diseño elegante</div>
+        <div class="valor-desc">Estética cuidada, tipografía serif y paleta crema-dorada. Adaptada a móvil y escritorio.</div>
+      </div>
+      <div class="valor-card">
+        <div class="valor-icon">⚙️</div>
+        <div class="valor-name">Módulos a la carta</div>
+        <div class="valor-desc">Elige solo lo que necesitas: menú, fotos, firmas, confirmación, lista de regalos…</div>
+      </div>
+      <div class="valor-card">
+        <div class="valor-icon">☁️</div>
+        <div class="valor-name">Datos en la nube</div>
+        <div class="valor-desc">Todo se guarda en tiempo real. Exporta el Excel con un clic desde el panel de admin.</div>
+      </div>
+      <div class="valor-card">
+        <div class="valor-icon">📱</div>
+        <div class="valor-name">Lista en 48h</div>
+        <div class="valor-desc">Tu web personalizada con foto, nombre y fecha, lista para compartir en 2 días.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MODELOS ══ -->
+<section class="modelos" id="modelos">
+  <div class="section-inner">
+    <p class="section-label">Diseños disponibles</p>
+    <h2 class="section-title">Elige tu <em>modelo</em></h2>
+    <p class="section-desc">Cada modelo tiene su propia estética. Personaliza el que más te guste con los módulos que quieras.</p>
+    <div class="modelos-grid">
+
+      <!-- Modelo 1: Juanki (activo) -->
+      <div class="modelo-card">
+        <div class="modelo-preview">
+          <span class="modelo-badge">Disponible</span>
+          <iframe src="modelos/juanki/" loading="lazy" title="Vista previa Modelo 1" scrolling="no"></iframe>
+        </div>
+        <div class="modelo-body">
+          <div class="modelo-name">Modelo 1 — Elegante</div>
+          <p class="modelo-desc">Estilo crema y dorado. Foto a pantalla completa, cuenta atrás, menú, álbum, firmas y lista de regalos.</p>
+          <div class="modelo-tags">
+            <span class="tag">Hero foto</span>
+            <span class="tag">Cuenta atrás</span>
+            <span class="tag">Confirmar</span>
+            <span class="tag">Menú</span>
+            <span class="tag">Regalos</span>
+            <span class="tag">Fotos</span>
+            <span class="tag">Firmas</span>
+            <span class="tag">Admin</span>
+          </div>
+          <a href="modelos/juanki/" target="_blank" class="btn-modelo">Ver demo</a>
+        </div>
+      </div>
+
+      <!-- Modelo 2: próximamente -->
+      <div class="modelo-card">
+        <div class="modelo-preview">
+          <span class="modelo-badge prox">Próximamente</span>
+          <div class="coming-soon">
+            <div class="coming-soon-icon">✨</div>
+            <div class="coming-soon-text">En desarrollo</div>
+          </div>
+        </div>
+        <div class="modelo-body">
+          <div class="modelo-name">Modelo 2</div>
+          <p class="modelo-desc">Nuevo diseño en desarrollo. Estética diferente con los mismos módulos configurables.</p>
+          <div class="modelo-tags"><span class="tag">—</span></div>
+          <a href="#" class="btn-modelo disabled">Próximamente</a>
+        </div>
+      </div>
+
+      <!-- Modelo 3: próximamente -->
+      <div class="modelo-card">
+        <div class="modelo-preview">
+          <span class="modelo-badge prox">Próximamente</span>
+          <div class="coming-soon">
+            <div class="coming-soon-icon">🌸</div>
+            <div class="coming-soon-text">En desarrollo</div>
+          </div>
+        </div>
+        <div class="modelo-body">
+          <div class="modelo-name">Modelo 3</div>
+          <p class="modelo-desc">En desarrollo.</p>
+          <div class="modelo-tags"><span class="tag">—</span></div>
+          <a href="#" class="btn-modelo disabled">Próximamente</a>
+        </div>
+      </div>
+
+      <!-- Modelo 4: próximamente -->
+      <div class="modelo-card">
+        <div class="modelo-preview">
+          <span class="modelo-badge prox">Próximamente</span>
+          <div class="coming-soon">
+            <div class="coming-soon-icon">🕊️</div>
+            <div class="coming-soon-text">En desarrollo</div>
+          </div>
+        </div>
+        <div class="modelo-body">
+          <div class="modelo-name">Modelo 4</div>
+          <p class="modelo-desc">En desarrollo.</p>
+          <div class="modelo-tags"><span class="tag">—</span></div>
+          <a href="#" class="btn-modelo disabled">Próximamente</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ MÓDULOS ══ -->
+<section class="modulos" id="modulos">
+  <div class="section-inner">
+    <p class="section-label">Funcionalidades</p>
+    <h2 class="section-title">Módulos <em>disponibles</em></h2>
+    <p class="section-desc">Cada web se construye combinando módulos. Elige solo los que necesitas.</p>
+    <div class="modulos-grid">
       <div class="mod-card">
         <div class="mod-icon">🖼️</div>
         <div class="mod-name">Hero con foto</div>
@@ -239,55 +486,104 @@ footer{
       <div class="mod-card">
         <div class="mod-icon">⏱️</div>
         <div class="mod-name">Cuenta atrás</div>
-        <div class="mod-desc">Contador de días, horas, minutos y segundos hasta la ceremonia.</div>
-      </div>
-      <div class="mod-card">
-        <div class="mod-icon">🍽️</div>
-        <div class="mod-name">Elección de menú</div>
-        <div class="mod-desc">Formulario para que los invitados elijan su plato. Guarda en Firebase. Exporta a Excel.</div>
-      </div>
-      <div class="mod-card">
-        <div class="mod-icon">📷</div>
-        <div class="mod-name">Álbum de fotos</div>
-        <div class="mod-desc">Los invitados suben fotos desde el móvil. Se guardan en la nube y se ven en tiempo real.</div>
-      </div>
-      <div class="mod-card">
-        <div class="mod-icon">✍️</div>
-        <div class="mod-name">Libro de firmas</div>
-        <div class="mod-desc">Canvas táctil para firmar con el dedo + dedicatoria. Se descarga como imagen con nombre.</div>
-      </div>
-      <div class="mod-card">
-        <div class="mod-icon">🔢</div>
-        <div class="mod-name">Contador de confirmados</div>
-        <div class="mod-desc">Muestra en tiempo real cuántos invitados han confirmado su plato.</div>
-      </div>
-      <div class="mod-card">
-        <div class="mod-icon">🔐</div>
-        <div class="mod-name">Panel de admin</div>
-        <div class="mod-desc">Acceso con contraseña para ver todos los datos y descargar el Excel, fotos y firmas.</div>
+        <div class="mod-desc">Contador de días, horas y minutos hasta la ceremonia.</div>
       </div>
       <div class="mod-card">
         <div class="mod-icon">✅</div>
         <div class="mod-name">Confirmación de asistencia</div>
-        <div class="mod-desc">Formulario para confirmar asistencia con número de adultos y niños. Guarda en Firebase. Exporta a Excel.</div>
+        <div class="mod-desc">Formulario para confirmar asistencia con número de adultos y niños. Exporta a Excel.</div>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon">🍽️</div>
+        <div class="mod-name">Elección de menú</div>
+        <div class="mod-desc">Los invitados eligen su plato. Se guarda en la nube y se exporta a Excel.</div>
       </div>
       <div class="mod-card">
         <div class="mod-icon">🎁</div>
         <div class="mod-name">Lista de regalos</div>
-        <div class="mod-desc">Lista de deseos configurable. Los invitados reservan un regalo. Estado en tiempo real desde Firebase.</div>
+        <div class="mod-desc">Los invitados reservan un regalo. Estado en tiempo real desde Firebase.</div>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon">📷</div>
+        <div class="mod-name">Álbum de fotos</div>
+        <div class="mod-desc">Los invitados suben fotos desde el móvil. Se ven en tiempo real.</div>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon">✍️</div>
+        <div class="mod-name">Libro de firmas</div>
+        <div class="mod-desc">Canvas táctil para firmar con el dedo y añadir una dedicatoria.</div>
+      </div>
+      <div class="mod-card">
+        <div class="mod-icon">🔐</div>
+        <div class="mod-name">Panel de admin</div>
+        <div class="mod-desc">Acceso con contraseña para ver todos los datos y descargar Excel, fotos y firmas.</div>
       </div>
       <div class="mod-card">
         <div class="mod-icon">🗺️</div>
         <div class="mod-name">Mapa / Ubicación</div>
-        <div class="mod-desc">Módulo con enlace a Google Maps de la iglesia y el restaurante. <em style="color:var(--accent)">(en desarrollo)</em></div>
+        <div class="mod-desc">Enlace a Google Maps de la iglesia y el restaurante. <em style="color:var(--accent)">(próximamente)</em></div>
       </div>
     </div>
   </div>
+</section>
 
-</main>
+<!-- ══ CÓMO FUNCIONA ══ -->
+<section class="proceso" id="como-funciona">
+  <div class="section-inner">
+    <p class="section-label">El proceso</p>
+    <h2 class="section-title">Listo en <em>48 horas</em></h2>
+    <p class="section-desc">Sin tecnicismos. Solo dime qué quieres y me encargo de todo.</p>
+    <div class="pasos">
+      <div class="paso">
+        <div class="paso-title">Elige tu modelo</div>
+        <div class="paso-desc">Selecciona el diseño que más te gusta y los módulos que necesitas.</div>
+      </div>
+      <div class="paso">
+        <div class="paso-title">Me envías los datos</div>
+        <div class="paso-desc">Foto del niño, nombre, fecha, iglesia, restaurante y cualquier detalle especial.</div>
+      </div>
+      <div class="paso">
+        <div class="paso-title">Lo monto todo</div>
+        <div class="paso-desc">Personalizo la web con tus datos, colores y módulos elegidos.</div>
+      </div>
+      <div class="paso">
+        <div class="paso-title">¡A compartir!</div>
+        <div class="paso-desc">Te entrego el enlace listo para enviar a los invitados por WhatsApp.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- ══ CONTACTO ══ -->
+<section class="contacto" id="contacto">
+  <div class="section-inner">
+    <p class="section-label" style="color:rgba(255,255,255,.4)">Hablamos</p>
+    <h2 class="section-title">¿Te interesa?<br><em>Escríbeme</em></h2>
+    <p class="section-desc">Sin compromiso. Cuéntame qué necesitas y te doy precio en el día.</p>
+    <div class="contact-grid">
+      <!-- ✏️ EDITAR: sustituye el número y el texto del mensaje -->
+      <a href="https://wa.me/34600000000?text=Hola!%20Me%20interesa%20una%20web%20de%20comuni%C3%B3n" class="contact-btn whatsapp" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp
+      </a>
+      <!-- ✏️ EDITAR: sustituye la dirección de email -->
+      <a href="mailto:hola@websdecomunion.es" class="contact-btn email">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+        Email
+      </a>
+      <!-- ✏️ EDITAR: sustituye el usuario de Instagram -->
+      <a href="https://instagram.com/websdecomunion" class="contact-btn instagram" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        Instagram
+      </a>
+    </div>
+    <p class="contact-note">Los datos de contacto son de ejemplo · Actualiza los enlaces antes de publicar</p>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
 <footer>
-  Webs de Comunión · Modelos personalizables
+  Webs de Comunión · Páginas personalizadas para el día más especial
 </footer>
 
 </body>
